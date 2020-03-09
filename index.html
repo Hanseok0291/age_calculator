@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>만나이 계산기</title>
+    <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+</head>
+<style>
+.wrap {
+    margin: 0 auto;
+    text-align: center;
+}
+.input-wrap input[type="number"] {
+    border: 1px solid #ccc;
+}
+</style>
+<body>
+    <div class="wrap container-fluid">
+        <h1>만 나이 계산기</h1>
+        <p>생년월일</p>
+        <div class="input-wrap">
+            <form action="" method="get" class="">
+                <div class="row">
+                    <div class="col-xs-12 col-md-4">
+                        <div class="input-group" style="padding-top:10px">
+                            <input type="text" id="year" class="form-control" maxlength="4" placeholder="연도"> <span class="input-group-addon">년</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="input-group" style="padding-top:10px">
+                            <input type="text" id="month" class="form-control" maxlength="2" placeholder="월"> <span class="input-group-addon">월</span>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-4">
+                        <div class="input-group" style="padding-top:10px">
+                            <input type="text" id="date" class="form-control" maxlength="2" placeholder="일"> <span class="input-group-addon">일</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <p style="padding-top: 20px;">
+                        <button type="button" class="btn btn-block btn-primary" onclick="getManAge()">계산</button>
+                        </p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="wrap container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="bg-info" style="padding: 10px 0;">나이 : 만 <strong><mark id="age">?</mark>살</strong></div>
+            </div>
+            <div class="col-xs-12">
+                <ul class="text-left" style="word-break: keep-all;padding-top: 20px;">
+                    <li>운전면허 취득 가능 <span style="color: #999;">(만18세 이상)</span></li>
+                    <li>아르바이트 및 취업 가능 <span style="color: #999;">(만18세 이상)</span></li>
+                    <li>청소년 관람불가 영화 관람 가능 <span style="color: #999;">(만18세 이상, 재학 중인 고등학생 제외)</span></li>
+                    <li>군대 입영 가능 <span style="color: #999;">(만18세 이상)</span></li>
+                    <li>9급 공무원 지원 가능 <span style="color: #999;">(만18세 이상)</span></li>
+                    <li>워킹 홀리데이 신청 가능 <span style="color: #999;">(만18세 ~ 만30세)</span></li>
+                    <li>투표 가능 <span style="color: #999;">(만18세 이상)</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function getManAge() {
+        var today = new Date(); // 현재 날짜
+        var nowYear = today.getFullYear(); // 현재 연도
+        // var nowMonth = today.getMonth() + 1;
+        // var nowDate = today.getDate();
+
+        var getYear = document.getElementById("year").value; // 입력된 연도
+        var getMonth = document.getElementById("month").value;
+        var getDate = document.getElementById("date").value;
+
+        // 입력된 연도가 빈값이 아니고 1900 이상 현재년도 이하인지 체크
+        if(getYear == ''|| Number(getYear) < 1900 || Number(getYear) > Number(nowYear)) {
+            alert("올바른 연도를 입력해주세요");
+            document.getElementById('year').focus();
+            return false;
+        }
+        if(getMonth == ''|| getMonth.length < 1 || Number(getMonth) < 1 || Number(getMonth) > 12) {
+            alert("올바른 월 입력해주세요");
+            document.getElementById('month').focus();
+            return false;
+        }
+        if(getDate == ''|| getDate.length < 1 || Number(getDate < 1 || Number(getDate) > 31)) {
+            alert("올바른 일 입력해주세요");
+            document.getElementById('date').focus();
+            return false;
+        }
+
+        var birthday = new Date(getMonth + '/' + getDate + '/' + getYear);
+        var years = today.getFullYear() - birthday.getFullYear();
+        // 현재 년도에서 생일을 재설정
+        birthday.setFullYear(today.getFullYear());
+
+        // 생일이 지났으면 -1
+        if(today < birthday) { years--; } document.getElementById('age').innerHTML=years;
+        console.log(birthday);
+        console.log(years);
+    }
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
